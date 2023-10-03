@@ -257,8 +257,8 @@ function filtrarProductosPorCategoria(categoriaId) {
 //Cambiar productos entre botones
 botonesCategorias.forEach( boton => {
     boton.addEventListener("click",(e)=>{
-        botonesCategorias.forEach( boton => {boton.classList.remove("active");
-        e.currentTarget.classList.add("active"); // currentTarget evita que la clase active se le ponga a algun hijo del boton.
+        botonesCategorias.forEach( boton => {boton.parentNode.classList.remove("active");
+        e.currentTarget.parentNode.classList.add("active"); // currentTarget evita que la clase active se le ponga a algun hijo del boton.
         const categoriaId = e.currentTarget.id;
         filtrarProductosPorCategoria(categoriaId)
         });
