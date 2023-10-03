@@ -68,8 +68,9 @@ a{
 }
 .navbar .menu{
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
 }
 .navbar .menu li {
     margin: 0;
@@ -78,14 +79,16 @@ a{
 }
 .navbar .boton-menu{
     border: 0;
+    background-color: transparent;
     color: var(--clr-alter);
-    font-size: .85rem;
+    font-size: 1rem;
     cursor: pointer;
     display: flex;
     gap: 1rem;
     font-weight: 600;
     align-items: center center;
     width: 100%;
+    transition: color 0.3s; 
 }
 .navbar .boton-menu .active{
     background-color: var(--clr-whiter);
