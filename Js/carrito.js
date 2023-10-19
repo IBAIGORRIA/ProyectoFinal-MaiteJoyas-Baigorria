@@ -51,7 +51,25 @@ function carritoCargarProductos(){
                 <button class="carrito-producto-eliminar" id=${producto.id}>
                     <i class="bi bi-trash3-fill"></i>
                 </button>
-                `;
+                <template id="my-template">
+                    <swal-title>
+                        Seguro que desea eliminar el producto?
+                    </swal-title>
+                    <swal-icon type="warning" color="red"></swal-icon>
+                    <swal-button type="confirm">
+                        Sí
+                    </swal-button>
+                    <swal-button type="cancel">
+                        Cancel
+                    </swal-button>
+                    <swal-button type="deny">
+                        No
+                    </swal-button>
+                    <swal-param name="allowEscapeKey" value="false" />
+                    <swal-param name="customClass" value='{ "popup": "my-popup" }' />
+                    <swal-function-param name="didOpen" value="popup => console.log(popup)" />
+                    </template>
+`;
             contenedorCarritoProductos.append(div);
             actualizarTotal();
             actualizarBttnEliminar();
@@ -70,13 +88,33 @@ carritoCargarProductos();
 function actualizarBttnEliminar() {
     carritoBotonEliminar= document.querySelectorAll(".carrito-producto-eliminar");
     carritoBotonEliminar.forEach(boton => {
-        boton.addEventListener("click", eliminarDelCarrito);
+        boton.addEventListener("click", () => {
+            // Muestra el SweetAlert personalizado cuando se hace clic en el botón
+            Swal.fire({
+                template: '#my-template',
+                showCancelButton: true,
+                allowEscapeKey: false,
+                didOpen: (popup) => {
+                  console.log(popup);
+                },
+                customClass: {
+                  popup: 'my-sweetalert',
+                  confirmButton: 'my-sweetalert-confirm-button',
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Aquí puedes realizar acciones adicionales si se confirma el SweetAlert.
+                    // Por ejemplo, eliminar el producto del carrito.
+                    eliminarDelCarrito(boton);
+                }
+            });
+        });
     });
 };
 
-function eliminarDelCarrito(e){
+function eliminarDelCarrito(boton){
     //reconozco el boton que borro
-    const idBoton = e.currentTarget.id;
+    const idBoton = boton.id;
     // busco en el carrito el item con el mismo id
     const indiceCarrito = carrito.findIndex(producto => producto.id === idBoton)
     // elimino todo el producto del array

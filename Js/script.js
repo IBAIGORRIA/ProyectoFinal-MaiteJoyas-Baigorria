@@ -1,202 +1,5 @@
 // PRODUCTOS
-const productos = [
-    // Collares
-    {
-        id: "CO-01",
-        nombre: "Collar 01",
-        imagen: "./Imgs/CollarDigeNinixAzul.jpeg",
-        categoria: {
-            nombre: "collares",
-            id: "collar 01"
-        },
-        precio: 1000
-    },
-    {
-        id: "CO-02",
-        nombre: "Collar 02",
-        imagen: "./Imgs/CollarDigeNinixAzul+Corazon.jpeg",
-        categoria: {
-            nombre: "collares",
-            id: "collar 02"
-        },
-        precio: 1000
-    },
-    {
-        id: "CO-03",
-        nombre: "Collar 03",
-        imagen: "./Imgs/CollarDijeNinixRosa.jpeg",
-        categoria: {
-            nombre: "collares",
-            id: "collar 03"
-        },
-        precio: 1000
-    },
-    {
-        id: "CO-04",
-        nombre: "Collar 04",
-        imagen: "./Imgs/CollarDigeNinixRosa+Corazon.jpeg",
-        categoria: {
-            nombre: "collares",
-            id: "collar 04"
-        },
-        precio: 1000
-    },
-
-//Promo Collares y Aros
-
-    {
-    id: "COAR-01",
-    nombre: "Collar y Aros 01",
-    imagen: "./Imgs/Collar+AroCorazonDobleDige.jpeg",
-    categoria: {
-            nombre: "promos",
-            id: "promo 01"
-        },
-    precio: 12000
-    },
-    {
-    id: "COAR-02",
-    nombre: "Collar y Aros 02",
-    imagen: "./Imgs/Collar+ArosCorazon.jpeg",
-    categoria: {
-            nombre: "promos",
-            id: "promo 02"
-        },
-    precio: 11000
-    },
-    {
-    id: "COAR-03",
-    nombre: "Collar y Aros 03",
-    imagen: "./Imgs/CollarColganteStrella+AroEstrella.jpeg",
-    categoria: {
-            nombre: "promos",
-            id: "promo 03"
-        },
-    precio: 12000
-    },
-    {
-        id: "COAR-04",
-        nombre: "Collar y Aros 04",
-        imagen: "./Imgs/CollarDobleOjoManos+AroManos.jpeg",
-        categoria: {
-            nombre: "promos",
-            id: "promo 04"
-        },
-        precio: 1000
-    },
-    {
-        id: "COAR-05",
-        nombre: "Collar y Aros 05",
-        imagen: "./Imgs/CollarMalDOjo+AroArgo.jpeg",
-        categoria: {
-            nombre: "promos",
-            id: "promo 05"
-        },
-        precio: 1000
-    },
-    {
-        id: "COAR-06",
-        nombre: "Collar y Aros 06",
-        imagen: "./Imgs/CollarMama+AroArgo.jpeg",
-        categoria: {
-            nombre: "promos",
-            id: "promo 06"
-        },
-        precio: 1000
-    },
-
-    //Combos Pulseras y Aros
-    {
-        id: "PUAR-01",
-        nombre: "Pulsera y Aros 01",
-        imagen: "./Imgs/Pulsera+AritosArbol.jpeg",
-        categoria: {
-            nombre: "pulseras",
-            id: "pulsera 01"
-        },
-        precio: 1000
-    },
-    {
-        id: "PUAR-02",
-        nombre: "Pulsera y Aros 02",
-        imagen: "./Imgs/Pulsera+AritosBolon.jpeg",
-        categoria: {
-            nombre: "pulseras",
-            id: "pulsera 02"
-        },
-        precio: 1000
-    },
-    {
-        id: "PUAR-03",
-        nombre: "Pulsera y Aros 03",
-        imagen: "./Imgs/Pulsera+AritosCorazon.jpeg",
-        categoria: {
-            nombre: "pulseras",
-            id: "pulsera 03"
-        },
-        precio: 1000
-    },
-    {
-        id: "PUAR-04",
-        nombre: "Pulsera y Aros 04",
-        imagen: "./Imgs/Pulsera+AritosFlor.jpeg",
-        categoria: {
-            nombre: "pulseras",
-            id: "pulsera 04"
-        },
-        precio: 1000
-    },
-    {
-        id: "PUAR-05",
-        nombre: "Pulsera y Aros 05",
-        imagen: "./Imgs/Pulsera+AritosOjoBlanco.jpeg",
-        categoria: {
-            nombre: "pulseras",
-            id: "pulsera 05"
-        },
-        precio: 1000
-    },
-    {
-        id: "PUAR-06",
-        nombre: "Pulsera y Aros 06",
-        imagen: "./Imgs/Pulsera+AritosOjoNegroMano.jpeg",
-        categoria: {
-            nombre: "pulseras",
-            id: "pulsera 06"
-        },
-        precio: 1000
-    },
-    {
-        id: "PUAR-07",
-        nombre: "Pulsera y Aros 07",
-        imagen: "./Imgs/Pulsera+AroEstrella.jpeg",
-        categoria: {
-            nombre: "pulseras",
-            id: "pulsera 07"
-        },
-        precio: 1000
-    },
-    {
-        id: "PUAR-08",
-        nombre: "Pulsera y Aros 08",
-        imagen: "./Imgs/PulseraCereStrella+AroEstrella.jpeg",
-        categoria: {
-            nombre: "pulseras",
-            id: "pulsera 08"
-        },
-        precio: 1000
-    },
-    {
-        id: "PUAR-09",
-        nombre: "Pulsera y Aros 09",
-        imagen: "./Imgs/PulseraHuesitos+AroSemilla.jpeg",
-        categoria: {
-            nombre: "pulseras",
-            id: "pulsera 09"
-        },
-        precio: 1000
-    },
-];
+let productos =[];
 
 // DOM elements
 const contenedorProductos = document.querySelector("#contenedor-productos");
@@ -237,7 +40,16 @@ function cargarProductos(productosACargar) {
 };
 
 // Inicialización base de la página
-cargarProductos(productos);
+fetch('/productos.json')
+    .then(response => response.json())
+    .then(data => {
+        productos = data
+        cargarProductos(productos);
+    })
+    .catch(error => {
+        console.error("Error al cargar los productos:", error);
+    });
+
 
 //Filtro de productos
 
@@ -295,4 +107,3 @@ function actualizarCantidadCarrito(){
     let numeroCantidad = productosEnCarrito.reduce((acum,item) => acum + item.cantidad,0);
     numerito.innerText = numeroCantidad;
 };
-
